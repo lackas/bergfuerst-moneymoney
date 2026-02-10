@@ -21,7 +21,7 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
 
-WebBanking{version     = 1.00,
+WebBanking{version     = 1.1,
            url         = "https://de.bergfuerst.com",
            services    = {"BERGFÜRST Account"},
            description = "Fetches balances from BERGFÜRST Website and returns them as securities"}
@@ -61,9 +61,8 @@ end
 function RefreshAccount (account, since)
   html = HTML(connection:get("https://de.bergfuerst.com/meine-investments"))
 
-  local totalInterestAmount = tonumber((html:xpath("//*[@id='top']/div[2]/div/div[1]/div[3]/p[2]/strong"):get(1):text():sub(1, -5):gsub(",", ".")))
-  local balance = tonumber((html:xpath("//*[@id='top']/div[2]/div/div[1]/div[2]/p[2]/strong"):get(1):text():sub(1, -5):gsub("%.", ""):gsub(",", ".")))
-
+  local totalInterestAmount = tonumber((html:xpath("//*[@id='top']/div[2]/div/div/div[2]/div/div[4]/p[2]/strong"):get(1):text():sub(1, -5):gsub(",", ".")))
+  local balance = tonumber((html:xpath("//*[@id='top']/div[2]/div/div/div/div/div[2]/p[2]/strong"):get(1):text():sub(1, -5):gsub("%.", ""):gsub(",", ".")))
   local securities = {}
   local investments = html:xpath("//table[contains(@class, 'table-overview')]/tbody/tr[contains(@class, 'cursor-pointer')]")
 
@@ -114,4 +113,4 @@ function trim(s)
   return (s:gsub("^%s*(.-)%s*$", "%1"))
 end
 
--- SIGNATURE: MCwCFDRsaWvI9goeVbbcS8sw1CNzmYRnAhQ+7GfvK6P/grHLdGHULwWqyHQ1CA==
+-- SIGNATURE: MCwCFDwoD2ENOjc9Du+vSsAxPf6e8rN/AhRMKygb9Pyj/mHXLOO2VRj3SY1/lQ==
